@@ -60,8 +60,6 @@ insert into Notas(fk_alunoID, fk_disciplinaID, bimestre1, bimestre2, bimestre3, 
 				  (3, 4, 10, 8, 6.5, 7),
 				  (3, 5, 7, 8.6, 9, 10);
 
-use Escola;
-
 select * from notas;
 
 select alunos.nome,Turmas.turma ,disciplinas.disciplina, notas.bimestre1, notas.bimestre2, notas.bimestre3, notas.bimestre4
@@ -71,8 +69,20 @@ select alunos.nome,Turmas.turma ,disciplinas.disciplina, notas.bimestre1, notas.
 	inner join Turmas
 	on Turmas.turmaID = Alunos.fk_turmaID
 	inner join Disciplinas
-	on disciplinas.disciplinaID = Notas.fk_disciplinaID;
+	on disciplinas.disciplinaID = Notas.fk_disciplinaID
+	where Turmas.turma = 605;
+
 	
+select alunos.nome,Turmas.turma, disciplinas.disciplina, (notas.bimestre1 + notas.bimestre2 + notas.bimestre3 + notas.bimestre4)/4 as 'Média'
+	from alunos
+	inner join Notas
+	on alunos.alunoID = notas.fk_alunoID
+	inner join Turmas
+	on Turmas.turmaID = Alunos.fk_turmaID
+	inner join Disciplinas
+	on disciplinas.disciplinaID = Notas.fk_disciplinaID
+	group by alunos.nome, turmas.turma, disciplinas.disciplina, notas.bimestre1, notas.bimestre2, notas.bimestre3, notas.bimestre4;
+
 delete from Alunos;
 -- Disciplinas
 -- alunos
